@@ -28,13 +28,6 @@ include_once('php/config.php');
       </video>
     </div>
     <div class="navigation_social">
-      <!-- FACEBOOK -->
-      <a href="https://www.facebook.com/ademarlneto" target="_blank">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-          <path fill="#EDF1F7"
-            d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z" />
-        </svg>
-
         <!-- INSTAGRAM -->
         <a href="https://www.instagram.com/ademarlneto" target="_blank">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -72,21 +65,21 @@ include_once('php/config.php');
         <div class="custom-cadastro">
           <h2>Cadastre-se</h1>
             <div class="modal-body">
-              <form method="POST" action="cadastrar.php">
+              <form method="POST" action="cadastrar.php" onsubmit="return validarFormulario()">
                 <div class="form-group">
                   <label for="nome">Nome completo*</label>
                   <input type="text" class="form-control mb-2" id="nome" placeholder="Digite seu nome" name="nome"
-                    required>
+                    >
                 </div>
                 <div class="form-group">
                   <label for="email">Email*</label>
                   <input type=" email" class="form-control mb-2" id="email" placeholder="Insira seu email..."
-                    name="email" required>
+                    name="email" >
                 </div>
                 <div class="form-group">
                   <label for="password">Senha*</label>
                   <input type="password" class="form-control mb-2" id="senha" placeholder="Insira sua senha..."
-                    name="senha" required>
+                    name="senha">
                 </div>
             </div>
             <div class="form-group">
@@ -97,7 +90,6 @@ include_once('php/config.php');
     </div>
   </div>
 </div>
-
   <script src="js/main.js"></script>  
 </body>
 
