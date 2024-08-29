@@ -25,8 +25,8 @@
 
 
 .navigation_social {
-    margin-left: 66rem;
-    margin-top: -60px;
+    position: relative;
+    margin-left: 12rem;
 }
 
 .navigation_social svg {
@@ -40,10 +40,6 @@
     opacity: 1;
     transform: translateY(-5px);
     cursor: pointer;
-}
-
-#modal-cadastro {
-    background-color: bisque;
 }
 
 .inputs {
@@ -85,6 +81,7 @@ a {
 .custom-save-button:hover {
     background-color: rgba(25, 92, 20, 0.752);
 }
+
 html, body {
     height: 100%;
     margin: 0;
@@ -100,7 +97,7 @@ html, body {
     border-radius: 18px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.6);
     height: 30rem;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
