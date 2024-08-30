@@ -29,6 +29,21 @@
     $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
     $senha = filter_input(INPUT_POST, 'senha', FILTER_SANITIZE_STRING);
 
+
+    // if(isset($_POST['nome']) || isset($_POST['email']) || isset($_POST[['senha']])) {
+    //   if(strlen($_POST['email']) == 0) {
+    //     echo "Preencha seu email":
+    //   }else if(strlen($_POST['senha']) == 0){
+    //     echo "Preencha sua senha";
+    //   }else {
+    //     $email = $conn->real_escape_string($_POST['email']);
+    //     $senha = $conn->real_escape_string($_POST['senha']);
+
+    //     $sql_code = "SELECT * FROM users WHere email = '$email' AND senha = '$enha'";
+    //     $sql_query = $conn->query($sql_code) or die ("Falha na exceução do código SQl");
+    //   }
+
+    // }
     if ($email === false) {
         echo "E-mail inválido!";
         exit();
