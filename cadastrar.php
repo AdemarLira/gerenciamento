@@ -21,27 +21,29 @@
       </video>
     </div>
     <a href="index.php" id="botao-retornar"> retornar</a>
-
+    <br>
   <?php
     include_once('php/config.php');
 
     $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
     $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
     $senha = filter_input(INPUT_POST, 'senha', FILTER_SANITIZE_STRING);
-
-    if ($email === false) {
-        echo "E-mail inválido!";
-        exit();
-    }
-
+    
+    
     if (empty($nome) || empty($email) || empty($senha)){
       echo "Todos os campos são obrigatórios";
     }
-
-    if (strlen($senha) < 8) {
-        echo "A senha deve ter pelo menos 8 caracteres!";
-        exit();
+  echo '<br>';
+   
+   if ($email === false) {
+     echo "E-mail inválido!";
     }
+  echo '<br>';
+      
+      if (strlen($senha) < 8) {
+        echo "A senha deve ter pelo menos 8 caracteres!";
+      }
+  echo '<br>';
 
     // Verificação se o email já existe no banco de dados
     $query = "SELECT id FROM users WHERE email = ?";
