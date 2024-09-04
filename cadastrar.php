@@ -25,9 +25,9 @@
   <?php
     include_once('php/config.php');
 
-    $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
+    $nome = filter_input(INPUT_POST, 'nome');
     $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-    $senha = filter_input(INPUT_POST, 'senha', FILTER_SANITIZE_STRING);
+    $senha = filter_input(INPUT_POST, 'senha');
     
     
     if (empty($nome) || empty($email) || empty($senha)){
