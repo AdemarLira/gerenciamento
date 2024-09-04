@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
   <title>Document</title>
 </head>
 <body>
@@ -11,19 +11,19 @@
   <div class="custom-container">
     <div id="cabecalho">
       <div id="conteudo-cabecalho">
-        <h1>Desafio - Vox</h1>
+        <h1>Confirmação</h1>
       </div>
     </div>
     
     <div id="background">
       <video loop autoplay muted>
-        <source src="./mp4/backgroundVideo.mp4" type="video/mp4">
+        <source src="../mp4/backgroundVideo.mp4" type="video/mp4">
       </video>
     </div>
-    <a href="index.php" id="botao-retornar"> retornar</a>
+    <a href="../login.php" id="botao-retornar">Retornar a tela de Login</a>
     <br>
   <?php
-    include_once('php/config.php');
+    include_once('config.php');
 
     $nome = filter_input(INPUT_POST, 'nome');
     $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
