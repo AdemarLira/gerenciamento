@@ -18,7 +18,7 @@ include_once('php/config.php');
     <div class="custom-container">
       <div id="cabecalho">
         <div id="conteudo-cabecalho">
-          <h1>CRasdasdUD</h1>
+          <h1>CRUD</h1>
         </div>
       </div>
 
