@@ -90,7 +90,7 @@
   </script>
   <script>
     function cadastrar() {
-      window.location.href = 'cadastrar.php';
+      window.location.href = 'cadastrarUsuario.php';
     }
     function login() {
       window.location.href = 'login.php';

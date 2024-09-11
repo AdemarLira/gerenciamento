@@ -24,7 +24,7 @@ include_once('php/config.php');
       
       <div id="background">
         <video loop autoplay muted>
-          <source src="./mp4/backgroundVideo.mp4" type="video/mp4">
+          <source src="./mp4/backgroundClinica.mp4" type="video/mp4">
         </video>
       </div>
       <div class="navigation_social">
@@ -61,30 +61,33 @@ include_once('php/config.php');
           </a>
           <!-- MODAL DE CADASTRO -->
           <div class="custom-cadastro">
-            <h2>Cadastre-se</h1>
+            <h2>Login</h1>
               <div class="modal-body">
-                <form method="POST" action="php/cadastrar.php" onsubmit="return validarFormulario()">
-                  <div class="form-group">
-                    <label for="nome">Nome completo</label>
-                    <input type="text" class="form-control mb-2" id="nome" placeholder="Digite seu nome" name="nome">
-                  </div>
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type=" email" class="form-control mb-2" id="email" placeholder="Insira seu email..." name="email">
-                  </div>
-                  <div class="form-group">
-                    <label for="password">Senha</label>
-                    <input type="password" class="form-control mb-2" id="senha" placeholder="Insira sua senha..." name="senha">
-                  </div>
-              </div>
-              <div class="form-group">
-                <button type="submit" class="custom-save-button" onclick="salvarCadastro()">Enviar</button>
-              </div>
-              </form>
+                <div class="form-group">
+                  <label for="nome">Nome completo</label>
+                  <input type="text" class="form-control mb-2" id="nome" placeholder="Digite seu nome" name="nome">
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type=" email" class="form-control mb-2" id="email" placeholder="Insira seu email..." name="email">
+                </div>
+                <div class="form-group">
+                  <label for="password">Senha</label>
+                  <input type="password" class="form-control mb-2" id="senha" placeholder="Insira sua senha..." name="senha">
+                </div>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="custom-save-button" onclick="login()">Entrar</button>
+            </div>
           </div>
       </div>
     </div>
   </div>
     <script src="js/main.js"></script>  
+    <script>  
+    function login() {
+        window.location.href = 'usuario.php';
+      } 
+    </script>
   </body>
 </html>

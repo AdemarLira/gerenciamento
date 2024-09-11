@@ -24,7 +24,7 @@ include_once('php/config.php');
       
       <div id="background">
         <video loop autoplay muted>
-          <source src="./mp4/backgroundVideo.mp4" type="video/mp4">
+          <source src="./mp4/backgroundClinica.mp4" type="video/mp4">
         </video>
       </div>
       <div class="navigation_social">
@@ -63,7 +63,7 @@ include_once('php/config.php');
           <div class="custom-cadastro">
             <h2>Cadastre-se</h1>
               <div class="modal-body">
-                <form method="POST" action="php/cadastrar.php" onsubmit="return validarFormulario()">
+                <form method="POST" action="php/confirmarCadastro.php" onsubmit="return validarFormulario()">
                   <div class="form-group">
                     <label for="nome">Nome completo</label>
                     <input type="text" class="form-control mb-2" id="nome" placeholder="Digite seu nome" name="nome">

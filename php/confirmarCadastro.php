@@ -17,7 +17,7 @@
     
     <div id="background">
       <video loop autoplay muted>
-        <source src="../mp4/backgroundVideo.mp4" type="video/mp4">
+        <source src="../mp4/backgroundClinica.mp4" type="video/mp4">
       </video>
     </div>
     <a href="../login.php" id="botao-retornar">Retornar a tela de Login</a>
