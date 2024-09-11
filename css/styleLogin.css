@@ -1,0 +1,127 @@
+.custom-container {
+    color: whitesmoke;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#cabecalho {
+    margin-left: 10%;
+    margin-top: none;
+}
+
+#conteudo-cabecalho {
+    display: flex;
+}
+
+#conteudo-cabecalho h1 {
+    margin-right: 20px;
+    margin-top: 20px;
+    color: rgb(178, 178, 178);
+}
+
+
+.navigation_social {
+    position: relative;
+    margin-left: 12rem;
+}
+
+.navigation_social svg {
+    width: 20px;
+    height: 20px;
+    opacity: 0.6;
+    transition: all 0.5s;
+}
+
+.navigation_social svg:hover {
+    opacity: 1;
+    transform: translateY(-5px);
+    cursor: pointer;
+}
+
+.inputs {
+    height: 35px;
+    border-radius: 8px;
+    border: 2px solid #8e8e8e82;
+    display: flex;
+    width: 65%;
+    margin-left: 15%;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+h2 {
+    text-align: center;
+    margin-top: 5px;
+    padding-top: 25px;
+    font-size: 30pt;
+}
+
+a {
+    margin-left: auto;
+    margin-right: 12px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.custom-save-button {
+    background-color: rgba(51, 132, 45, 0.695);
+    color: whitesmoke;
+    margin-left: 140px;
+    width: 40%;
+    height: 45px;
+    border-radius: 8px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.4);
+    border: none;
+}
+
+.custom-save-button:hover {
+    background-color: rgba(25, 92, 20, 0.752);
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-cadastro {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: rgba(178, 178, 178, 0.952);
+    width: 500px;
+    border-radius: 18px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.6);
+    height: 30rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#background {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100vh;
+}
+
+#background video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#background::after {
+    content: '';
+    width: inherit;
+    height: inherit;
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(109deg, rgba(10, 12, 16, 0.6) 15%, rgba(10, 12, 16, 0.4) 20%, rgba(10, 12, 15, 0.99) 85%);
+}
