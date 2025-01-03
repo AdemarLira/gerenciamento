@@ -64,10 +64,6 @@ include_once('php/config.php');
             <h2>Login</h1>
               <div class="modal-body">
                 <div class="form-group">
-                  <label for="nome">Nome completo</label>
-                  <input type="text" class="form-control mb-2" id="nome" placeholder="Digite seu nome" name="nome">
-                </div>
-                <div class="form-group">
                   <label for="email">Email</label>
                   <input type=" email" class="form-control mb-2" id="email" placeholder="Insira seu email..." name="email">
                 </div>
