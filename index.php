@@ -56,11 +56,10 @@
 
   <div class="main_info">
     <p data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out" style="font-size: 25pt;" id="bemvindo">
-      <strong> Bem-vindo (Nome_clínica)!</strong>
+      <strong> Bem-vindo ao Alfa!</strong>
     </p>
     <p data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out">
-      &nbsp; &nbsp;O propósito desse sistema é para auxiliar você na organização de suas atividades diárias/mensais,
-      seja pessoal ou empresarial.
+      &nbsp; &nbsp; Agende a sua consulta com o profissional que você deseja!
     </p>
     <br>
     <button class="button-cadastrar" data-aos="fade-up" data-aos-delay="750" data-aos-duration="1500"
@@ -69,7 +68,7 @@
       data-aos-easing="ease-in-out" onclick="login()">Fazer Login</button>
     <br>
     <p data-aos="fade-in" data-aos-duration="2000" data-aos-delay="1500" data-aos-easing="ease-in-out" id="organizacao">
-      &nbsp; &nbsp;:
+      &nbsp; &nbsp;
     </p>
   </div>
 
