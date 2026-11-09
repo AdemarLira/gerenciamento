@@ -59,7 +59,12 @@
                             </div>
                         </div>
                     </a>
-                    @include('appointments._status_menu', ['appointment' => $a])
+                    <div class="row" style="gap:6px">
+                        @if($wa = $a->patient->whatsappUrl('Olá '.$a->patient->firstName().'! Passando para lembrar da sua consulta hoje às '.$a->starts_at->format('H:i').' com '.$a->professional->name.' na '.$currentClinic->name.'. Podemos confirmar?'))
+                            <a href="{{ $wa }}" target="_blank" rel="noopener" class="btn btn-sm btn-ghost btn-icon btn-wa-soft" title="Lembrar pelo WhatsApp" aria-label="Lembrar {{ $a->patient->name }} pelo WhatsApp"><x-whatsapp-icon size="16"/></a>
+                        @endif
+                        @include('appointments._status_menu', ['appointment' => $a])
+                    </div>
                 </div>
         @endforeach
         </div>
@@ -87,8 +92,8 @@
                     </div>
                 </div>
                 @if($wa = $nextAppointment->patient->whatsappUrl())
-                    <a href="{{ $wa }}?text={{ urlencode('Olá '.$nextAppointment->patient->name.', confirmando sua consulta hoje às '.$nextAppointment->starts_at->format('H:i').' na '.$currentClinic->name.'.') }}" target="_blank" rel="noopener" class="btn btn-sm btn-block mt-3">
-                        <x-icon name="message" size="sm"/> Lembrar pelo WhatsApp
+                    <a href="{{ $wa }}?text={{ rawurlencode('Olá '.$nextAppointment->patient->firstName().', confirmando sua consulta '.($nextAppointment->starts_at->isToday() ? 'hoje' : 'em '.$nextAppointment->starts_at->format('d/m')).' às '.$nextAppointment->starts_at->format('H:i').' na '.$currentClinic->name.'.') }}" target="_blank" rel="noopener" class="btn btn-sm btn-block btn-wa mt-3">
+                        <x-whatsapp-icon size="15"/> Lembrar pelo WhatsApp
                     </a>
                 @endif
             </div>

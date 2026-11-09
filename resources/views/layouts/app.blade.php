@@ -31,6 +31,9 @@
         <a href="{{ route('patients.index') }}" @class(['nav-link', 'active' => request()->routeIs('patients.*')])>
             <x-icon name="users"/> Pacientes
         </a>
+        <a href="{{ $currentClinic->bookingUrl() }}" target="_blank" rel="noopener" class="nav-link">
+            <x-icon name="link"/> Agendamento online <x-icon name="external" size="sm" class="ml-auto muted"/>
+        </a>
 
         @if(auth()->user()->isAdmin())
             <div class="nav-label">Administração</div>
@@ -46,6 +49,9 @@
         @endif
 
         <div class="sidebar-footer">
+            @if($support = \App\Support\WhatsApp::sales('Olá! Sou da '.$currentClinic->name.' e preciso de ajuda com o sistema.'))
+                <a href="{{ $support }}" target="_blank" rel="noopener" class="nav-link mb-2"><x-whatsapp-icon size="18" class="btn-wa-soft"/> Suporte no WhatsApp</a>
+            @endif
             <div class="user-chip">
                 <x-avatar :initials="auth()->user()->initials()" size="sm"/>
                 <div class="meta">

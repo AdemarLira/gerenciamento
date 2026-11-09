@@ -71,6 +71,9 @@
                             @endif
                         </td>
                         <td class="actions">
+                            @if($wa = $p->whatsappUrl('Olá '.$p->firstName().', tudo bem? Aqui é da '.$currentClinic->name.'.'))
+                                <a href="{{ $wa }}" target="_blank" rel="noopener" class="btn btn-sm btn-ghost btn-icon btn-wa-soft" title="Conversar no WhatsApp" aria-label="Conversar com {{ $p->name }} no WhatsApp"><x-whatsapp-icon size="16"/></a>
+                            @endif
                             <a href="{{ route('appointments.create', ['patient' => $p->id]) }}" class="btn btn-sm btn-ghost btn-icon" title="Agendar"><x-icon name="calendar-plus" size="sm"/></a>
                             <a href="{{ route('patients.edit', $p) }}" class="btn btn-sm btn-ghost btn-icon" title="Editar"><x-icon name="pencil" size="sm"/></a>
                         </td>

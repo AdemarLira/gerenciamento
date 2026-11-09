@@ -71,12 +71,28 @@
     </div>
 
     <div class="card">
+        <div class="card-header"><div><h2>Agendamento online</h2><div class="sub">Link para seus pacientes marcarem consulta sozinhos, 24 horas por dia.</div></div></div>
+        <div class="card-body stack" style="gap:14px">
+            <div class="share-link">
+                <span class="link-box"><x-icon name="link" size="sm"/> {{ $clinic->bookingUrl() }}</span>
+                <button type="button" class="btn btn-sm" data-copy="{{ $clinic->bookingUrl() }}"><x-icon name="copy" size="sm"/> Copiar</button>
+                <a href="{{ $clinic->bookingUrl() }}" target="_blank" rel="noopener" class="btn btn-sm btn-ghost"><x-icon name="eye" size="sm"/> Abrir</a>
+            </div>
+            <div class="row wrap" style="gap:8px">
+                <a href="https://wa.me/?text={{ rawurlencode('Agende sua consulta na '.$clinic->name.' pelo link: '.$clinic->bookingUrl()) }}" target="_blank" rel="noopener" class="btn btn-sm btn-wa"><x-whatsapp-icon size="15"/> Enviar link pelo WhatsApp</a>
+                <span class="muted small">Dica: coloque o link na bio do Instagram e no perfil do Google.</span>
+            </div>
+            <p class="muted small">Os horários livres seguem o expediente e a duração padrão abaixo (segunda a sábado). O telefone da clínica é usado como WhatsApp de contato na página.</p>
+        </div>
+    </div>
+
+    <div class="card">
         <div class="card-header"><h2>Contato e expediente</h2></div>
         <div class="card-body form-grid">
             <x-field name="document" label="CNPJ / CPF" class="col-2">
                 <input id="document" name="document" value="{{ old('document', $clinic->document) }}" class="input">
             </x-field>
-            <x-field name="phone" label="Telefone" class="col-2">
+            <x-field name="phone" label="Telefone / WhatsApp" class="col-2">
                 <input id="phone" name="phone" value="{{ old('phone', $clinic->phone) }}" class="input" data-mask="phone">
             </x-field>
             <x-field name="email" label="E-mail" class="col-2">
