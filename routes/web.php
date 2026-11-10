@@ -3,6 +3,7 @@
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfessionalController;
@@ -11,6 +12,10 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn () => auth()->check() ? redirect()->route('dashboard') : view('welcome'))->name('home');
+
+// Agendamento online (público): o paciente escolhe profissional, dia e horário.
+Route::get('/agendar/{slug}', [BookingController::class, 'show'])->name('booking.show');
+Route::post('/agendar/{slug}', [BookingController::class, 'store'])->middleware('throttle:10,1')->name('booking.store');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'show'])->name('login');

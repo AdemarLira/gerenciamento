@@ -14,6 +14,11 @@ return [
     'previous_keys' => [
         ...array_filter(explode(',', (string) env('APP_PREVIOUS_KEYS', ''))),
     ],
+
+    // WhatsApp comercial exibido na página de vendas e no botão de suporte do sistema.
+    'sales_whatsapp' => env('SALES_WHATSAPP'),
+    'sales_whatsapp_message' => env('SALES_WHATSAPP_MESSAGE', 'Olá! Quero conhecer o sistema para o meu consultório.'),
+
     'maintenance' => [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),

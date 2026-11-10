@@ -84,13 +84,13 @@ class Patient extends Model
         };
     }
 
-    public function whatsappUrl(): ?string
+    public function whatsappUrl(?string $text = null): ?string
     {
-        $d = preg_replace('/\D/', '', (string) $this->phone);
-        if (strlen($d) < 10) {
-            return null;
-        }
+        return \App\Support\WhatsApp::link($this->phone, $text);
+    }
 
-        return 'https://wa.me/'.(strlen($d) <= 11 ? '55'.$d : $d);
+    public function firstName(): string
+    {
+        return \Illuminate\Support\Str::of($this->name)->trim()->explode(' ')->first();
     }
 }

@@ -110,8 +110,9 @@
             <div class="strong mb-2">Ações rápidas</div>
             <div class="stack" style="gap:8px">
                 <a href="{{ route('patients.show', $appointment->patient_id) }}" class="btn btn-block"><x-icon name="user" size="sm"/> Ver ficha do paciente</a>
-                @if($wa = $appointment->patient->whatsappUrl())
-                    <a href="{{ $wa }}?text={{ urlencode('Olá '.$appointment->patient->name.'! Lembrete da sua consulta em '.$appointment->starts_at->format('d/m \à\s H:i').' na '.$currentClinic->name.'. Podemos confirmar?') }}" target="_blank" rel="noopener" class="btn btn-block"><x-icon name="message" size="sm"/> Enviar lembrete no WhatsApp</a>
+                @if($wa = $appointment->patient->whatsappUrl('Olá '.$appointment->patient->firstName().'! Lembrete da sua consulta em '.$appointment->starts_at->format('d/m \à\s H:i').' com '.$appointment->professional->name.' na '.$currentClinic->name.'. Podemos confirmar?'))
+                    <a href="{{ $wa }}" target="_blank" rel="noopener" class="btn btn-wa btn-block"><x-whatsapp-icon size="15"/> Enviar lembrete no WhatsApp</a>
+                    <a href="{{ $appointment->patient->whatsappUrl() }}" target="_blank" rel="noopener" class="btn btn-block"><x-whatsapp-icon size="15"/> Abrir conversa</a>
                 @endif
                 <form method="POST" action="{{ route('appointments.destroy', $appointment) }}" data-confirm="Excluir esta consulta definitivamente? Para manter o histórico, prefira mudar o status para Cancelado.">
                     @csrf @method('DELETE')

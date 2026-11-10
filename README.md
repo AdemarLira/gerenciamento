@@ -6,6 +6,12 @@ cada clínica tem sua conta, seus dados isolados, seu logo, sua cor e seu link d
 
 ## Funcionalidades
 
+- **Página de vendas** (`/`): landing page para médicos, dentistas, psicólogos e clínicas, com recursos, planos,
+  dúvidas frequentes e botão flutuante de WhatsApp. Os planos e preços ficam no topo de `resources/views/welcome.blade.php`.
+- **Agendamento online** (`/agendar/{slug}`): o paciente escolhe profissional, dia e horário livre (segunda a sábado,
+  dentro do expediente da clínica). O cadastro do paciente é criado pelo WhatsApp informado e a consulta cai direto na agenda.
+- **WhatsApp em um clique**: lembrete por consulta no painel, conversa na lista e na ficha do paciente,
+  confirmação do paciente após agendar online e botão de suporte no menu.
 - **Cadastro de clínica** (`/cadastro`): cria a clínica e o usuário administrador.
 - **Login com a marca da clínica** (`/c/{slug}`): link próprio para entregar a cada cliente.
 - **Painel**: consultas do dia, próximo atendimento, comparecimento, faturamento do mês e gráfico da semana.
@@ -34,6 +40,10 @@ php artisan serve
 ```
 
 Acesse `http://localhost:8000`.
+
+Para exibir o seu WhatsApp comercial na página de vendas e no botão de suporte, defina no `.env`:
+`SALES_WHATSAPP=11999999999` (DDD + número). Sem essa variável, os botões comerciais ficam ocultos.
+O WhatsApp de cada clínica é o telefone cadastrado em **Personalizar**.
 Usuário de demonstração: **admin@demo.com** / senha **password** (recepção: recepcao@demo.com).
 
 > Em produção, rode `php artisan migrate --force` sem `--seed` e use `APP_ENV=production` e `APP_DEBUG=false`.

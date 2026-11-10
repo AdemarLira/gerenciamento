@@ -13,7 +13,7 @@ class AuthTest extends TestCase
 
     public function test_pages_publicas_carregam(): void
     {
-        $this->get('/')->assertOk()->assertSee('Cadastrar minha clínica');
+        $this->get('/')->assertOk()->assertSee('Começar teste grátis');
         $this->get('/login')->assertOk();
         $this->get('/cadastro')->assertOk();
     }

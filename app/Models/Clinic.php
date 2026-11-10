@@ -92,6 +92,17 @@ class Clinic extends Model
             ->implode('');
     }
 
+    /** WhatsApp da clínica (usa o telefone cadastrado em Personalizar). */
+    public function whatsappUrl(?string $text = null): ?string
+    {
+        return \App\Support\WhatsApp::link($this->phone, $text);
+    }
+
+    public function bookingUrl(): string
+    {
+        return route('booking.show', $this->slug);
+    }
+
     /** Variáveis CSS do tema da clínica (cor de destaque e derivadas). */
     public function themeCss(): string
     {

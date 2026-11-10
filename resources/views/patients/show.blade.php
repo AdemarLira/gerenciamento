@@ -83,7 +83,7 @@
             </dl>
             @if($patient->whatsappUrl())
                 <div class="card-body" style="padding-top:0">
-                    <a href="{{ $patient->whatsappUrl() }}" target="_blank" rel="noopener" class="btn btn-block"><x-icon name="message" size="sm"/> Conversar no WhatsApp</a>
+                    <a href="{{ $patient->whatsappUrl('Olá '.$patient->firstName().', tudo bem? Aqui é da '.$currentClinic->name.'.') }}" target="_blank" rel="noopener" class="btn btn-wa btn-block"><x-whatsapp-icon size="15"/> Conversar no WhatsApp</a>
                 </div>
             @endif
         </div>
