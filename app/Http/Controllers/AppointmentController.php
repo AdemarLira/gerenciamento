@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Models\BookingRequest;
 use App\Models\Patient;
 use App\Models\Professional;
 use Illuminate\Http\Request;
@@ -59,15 +60,23 @@ class AppointmentController extends Controller
         $clinic = $this->clinic();
         $date = $this->parseDate($request->query('date'));
 
+        // Vindo de uma solicitação do site: já traz o tratamento e a mensagem do paciente.
+        $bookingRequest = $request->integer('solicitacao')
+            ? BookingRequest::find($request->integer('solicitacao'))
+            : null;
+
         $appointment = new Appointment([
             'professional_id' => $request->integer('professional') ?: null,
-            'patient_id' => $request->integer('patient') ?: null,
-            'type' => 'Consulta',
+            'patient_id' => $request->integer('patient') ?: $bookingRequest?->patient_id,
+            'type' => $bookingRequest ? 'Avaliação' : 'Consulta',
+            'procedure' => $bookingRequest?->procedure,
             'status' => 'scheduled',
+            'notes' => $bookingRequest?->message ? 'Mensagem do paciente: '.$bookingRequest->message : null,
         ]);
 
         return view('appointments.form', [
             'appointment' => $appointment,
+            'bookingRequest' => $bookingRequest,
             'date' => $date->toDateString(),
             'time' => $request->query('time', substr($clinic->opens_at, 0, 5)),
             'duration' => $clinic->slot_minutes,
@@ -78,6 +87,15 @@ class AppointmentController extends Controller
     public function store(Request $request)
     {
         $appointment = Appointment::create($this->validated($request));
+
+        if ($request->integer('booking_request_id')
+            && $bookingRequest = BookingRequest::find($request->integer('booking_request_id'))) {
+            $bookingRequest->update([
+                'status' => 'scheduled',
+                'appointment_id' => $appointment->id,
+                'patient_id' => $appointment->patient_id,
+            ]);
+        }
 
         return redirect()
             ->route('appointments.index', ['date' => $appointment->starts_at->toDateString()])
@@ -148,9 +166,13 @@ class AppointmentController extends Controller
             'status' => ['required', Rule::in(array_keys(Appointment::STATUSES))],
             'price' => ['nullable', 'numeric', 'min:0', 'max:999999'],
             'notes' => ['nullable', 'string', 'max:2000'],
+            'procedure' => ['nullable', 'string', 'max:120'],
+            'procedure_details' => ['nullable', 'string', 'max:5000'],
+            'patient_instructions' => ['nullable', 'string', 'max:3000'],
         ], [], [
             'patient_id' => 'paciente', 'professional_id' => 'profissional', 'date' => 'data',
             'time' => 'horário', 'duration' => 'duração', 'type' => 'tipo', 'price' => 'valor', 'notes' => 'observações',
+            'procedure' => 'procedimento', 'procedure_details' => 'planejamento', 'patient_instructions' => 'orientações ao paciente',
         ]);
 
         $start = Carbon::createFromFormat('Y-m-d H:i', $data['date'].' '.$data['time']);
@@ -172,6 +194,9 @@ class AppointmentController extends Controller
             'status' => $data['status'],
             'price' => $data['price'] ?? null,
             'notes' => $data['notes'] ?? null,
+            'procedure' => $data['procedure'] ?? null,
+            'procedure_details' => $data['procedure_details'] ?? null,
+            'patient_instructions' => $data['patient_instructions'] ?? null,
         ];
     }
 

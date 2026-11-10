@@ -15,6 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => \App\Http\Middleware\EnsureUserHasRole::class,
             'clinic.active' => \App\Http\Middleware\EnsureClinicIsActive::class,
         ]);
+        // No editor do site, campo apagado significa "vazio", não "usar o texto padrão".
+        $middleware->convertEmptyStringsToNull(except: [
+            fn (\Illuminate\Http\Request $request) => $request->is('site'),
+        ]);
         $middleware->redirectGuestsTo('/login');
         $middleware->redirectUsersTo('/painel');
     })

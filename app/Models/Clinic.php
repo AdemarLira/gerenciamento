@@ -79,6 +79,27 @@ class Clinic extends Model
         return $this->hasMany(Appointment::class);
     }
 
+    public function site(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Site::class);
+    }
+
+    /** Site da clínica (cria com o conteúdo padrão na primeira vez). */
+    public function siteOrDefault(): Site
+    {
+        return $this->site ?? $this->setRelation('site', $this->site()->create(['content' => [], 'is_published' => true]))->site;
+    }
+
+    public function bookingRequests(): HasMany
+    {
+        return $this->hasMany(BookingRequest::class);
+    }
+
+    public function siteUrl(): string
+    {
+        return route('site.show', $this->slug);
+    }
+
     public function logoUrl(): ?string
     {
         return $this->logo_path ? Storage::disk('public')->url($this->logo_path) : null;

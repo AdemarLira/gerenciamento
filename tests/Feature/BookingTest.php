@@ -53,7 +53,7 @@ class BookingTest extends TestCase
     {
         config(['app.sales_whatsapp' => '11999990000']);
 
-        $this->get('/')->assertOk()
+        $this->get('/plataforma')->assertOk()
             ->assertSee('Planos')
             ->assertSee('Agendamento online')
             ->assertSee('https://wa.me/5511999990000', false);

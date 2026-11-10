@@ -32,7 +32,7 @@
                     <div class="tl-body">
                         <span class="pro-dot" style="background: {{ $a->professional->color }}"></span>
                         <div style="min-width:0">
-                            <div class="strong truncate">{{ $a->type ?? 'Consulta' }} com {{ $a->professional->name }}</div>
+                            <div class="strong truncate">{{ $a->procedure ?: ($a->type ?? 'Consulta') }} com {{ $a->professional->name }}</div>
                             <div class="muted small">{{ ucfirst($a->starts_at->translatedFormat('l')) }} · {{ $a->durationMinutes() }} min</div>
                         </div>
                     </div>
@@ -56,7 +56,8 @@
                             <tr>
                                 <td><div class="strong">{{ $a->starts_at->format('d/m/Y') }}</div><div class="muted small">{{ $a->starts_at->format('H:i') }}</div></td>
                                 <td>
-                                    <div>{{ $a->type ?? 'Consulta' }}</div>
+                                    <a href="{{ route('appointments.edit', $a) }}" class="strong">{{ $a->procedure ?: ($a->type ?? 'Consulta') }}</a>
+                                    @if($a->procedure_details)<div class="muted small">{{ \Illuminate\Support\Str::limit($a->procedure_details, 140) }}</div>@endif
                                     <div class="muted small row" style="gap:6px"><span class="pro-dot" style="background: {{ $a->professional->color }}"></span>{{ $a->professional->name }}</div>
                                 </td>
                                 <td class="hide-sm">{{ $a->price ? 'R$ '.number_format($a->price, 2, ',', '.') : '—' }}</td>
