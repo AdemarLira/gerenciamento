@@ -28,6 +28,13 @@ class Appointment extends Model
 
     protected $fillable = [
         'clinic_id', 'patient_id', 'professional_id', 'starts_at', 'ends_at', 'type', 'status', 'price', 'notes',
+        'procedure', 'procedure_details', 'patient_instructions',
+    ];
+
+    /** Procedimentos sugeridos no formulário (pode digitar outro). */
+    public const PROCEDURES = [
+        'Avaliação', 'Lentes de contato dental', 'Facetas em porcelana', 'Implante dentário', 'Coroa sobre implante',
+        'Clareamento', 'Alinhadores invisíveis', 'Limpeza / profilaxia', 'Restauração', 'Canal', 'Extração', 'Gengivoplastia',
     ];
 
     protected function casts(): array

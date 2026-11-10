@@ -58,7 +58,7 @@
 
 <header class="lp-nav" data-nav>
     <div class="lp-wrap lp-nav-in">
-        <a href="{{ route('home') }}" class="lp-logo">
+        <a href="{{ route('platform') }}" class="lp-logo">
             <span class="lp-logo-mark"><x-icon name="activity" size="sm"/></span>
             {{ $app }}
         </a>
@@ -371,7 +371,7 @@
 
 <footer class="lp-footer">
     <div class="lp-wrap lp-footer-in">
-        <a href="{{ route('home') }}" class="lp-logo"><span class="lp-logo-mark"><x-icon name="activity" size="sm"/></span>{{ $app }}</a>
+        <a href="{{ route('platform') }}" class="lp-logo"><span class="lp-logo-mark"><x-icon name="activity" size="sm"/></span>{{ $app }}</a>
         <nav>
             <a href="#recursos">Recursos</a>
             <a href="#planos">Planos</a>

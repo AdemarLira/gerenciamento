@@ -4,16 +4,25 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\BookingRequestController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfessionalController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\SiteController;
+use App\Http\Controllers\SiteEditorController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn () => auth()->check() ? redirect()->route('dashboard') : view('welcome'))->name('home');
+// Site público da clínica (landing page personalizável).
+Route::get('/', [SiteController::class, 'home'])->name('home');
+Route::get('/s/{slug}', [SiteController::class, 'show'])->name('site.show');
+Route::post('/s/{slug}/agendar', [SiteController::class, 'request'])->middleware('throttle:6,1')->name('site.request');
 
-// Agendamento online (público): o paciente escolhe profissional, dia e horário.
+// Página de vendas do sistema (para oferecer a outros profissionais).
+Route::view('/plataforma', 'welcome')->name('platform');
+
+// Agendamento online com escolha de horário (opcional).
 Route::get('/agendar/{slug}', [BookingController::class, 'show'])->name('booking.show');
 Route::post('/agendar/{slug}', [BookingController::class, 'store'])->middleware('throttle:10,1')->name('booking.store');
 
@@ -42,6 +51,11 @@ Route::middleware(['auth', 'clinic.active'])->group(function () {
     Route::patch('/agenda/{appointment}/status', [AppointmentController::class, 'updateStatus'])->name('appointments.status');
     Route::delete('/agenda/{appointment}', [AppointmentController::class, 'destroy'])->name('appointments.destroy');
 
+    // Pedidos de agendamento vindos do site.
+    Route::get('/solicitacoes', [BookingRequestController::class, 'index'])->name('requests.index');
+    Route::patch('/solicitacoes/{bookingRequest}', [BookingRequestController::class, 'update'])->name('requests.update');
+    Route::post('/solicitacoes/{bookingRequest}/agendar', [BookingRequestController::class, 'schedule'])->name('requests.schedule');
+
     Route::resource('profissionais', ProfessionalController::class)
         ->except('show')
         ->parameters(['profissionais' => 'professional'])
@@ -51,6 +65,10 @@ Route::middleware(['auth', 'clinic.active'])->group(function () {
     Route::middleware('role:admin')->group(function () {
         Route::get('/personalizar', [SettingsController::class, 'edit'])->name('settings.edit');
         Route::put('/personalizar', [SettingsController::class, 'update'])->name('settings.update');
+
+        Route::get('/site', [SiteEditorController::class, 'edit'])->name('site.edit');
+        Route::put('/site', [SiteEditorController::class, 'update'])->name('site.update');
+        Route::post('/site/restaurar', [SiteEditorController::class, 'reset'])->name('site.reset');
 
         Route::resource('equipe', UserController::class)
             ->except('show')

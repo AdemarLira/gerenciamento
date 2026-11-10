@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Appointment;
+use App\Models\BookingRequest;
 use App\Models\Clinic;
 use App\Models\Patient;
 use App\Models\Professional;
@@ -19,13 +20,13 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $clinic = Clinic::create([
-            'name' => 'Clínica Vida Plena',
-            'slug' => 'vida-plena',
-            'email' => 'contato@vidaplena.com.br',
+            'name' => 'Helena Duarte Odontologia',
+            'slug' => 'helena-duarte',
+            'email' => 'contato@helenaduarte.com.br',
             'phone' => '11987654321',
-            'address' => 'Av. Paulista, 1000 — São Paulo/SP',
-            'primary_color' => '#7C5CFF',
-            'welcome_message' => 'Cuidado de verdade, do agendamento ao retorno.',
+            'address' => 'Rua Oscar Freire, 000 — Jardins, São Paulo/SP',
+            'primary_color' => '#B8955A',
+            'welcome_message' => 'Cada sorriso é projetado, não padronizado.',
         ]);
 
         User::factory()->for($clinic)->admin()->create([
@@ -38,14 +39,27 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $pros = collect([
-            ['Dra. Ana Ribeiro', 'Dermatologia', 'CRM 123456', '#EC4899'],
-            ['Dr. Carlos Mendes', 'Clínico Geral', 'CRM 654321', '#06B6D4'],
-            ['Dra. Paula Santos', 'Psicologia', 'CRP 06/98765', '#10B981'],
+            ['Dra. Helena Duarte', 'Prótese e Estética', 'CRO-SP 000000', '#B8955A'],
+            ['Dr. Rafael Moura', 'Implantodontia', 'CRO-SP 000001', '#4F7C93'],
+            ['Dra. Lívia Prado', 'Ortodontia', 'CRO-SP 000002', '#7F9478'],
         ])->map(fn ($p) => Professional::create([
             'clinic_id' => $clinic->id, 'name' => $p[0], 'specialty' => $p[1], 'registry' => $p[2], 'color' => $p[3],
         ]));
 
         $patients = Patient::factory()->count(40)->create(['clinic_id' => $clinic->id]);
+
+        // Pedidos de avaliação vindos do site (caixa "Solicitações").
+        foreach ([
+            ['Marina Costa', '11988887777', 'Lentes de contato dental', 'tarde', 'Gostaria de melhorar a cor e o formato dos dentes da frente.'],
+            ['Ricardo Alves', '11977776666', 'Implantes', 'manha', null],
+            ['Fernanda Lima', '11966665555', 'Clareamento', null, 'Tenho um casamento em dois meses.'],
+        ] as $i => [$name, $phone, $procedure, $period, $message]) {
+            BookingRequest::create([
+                'clinic_id' => $clinic->id, 'name' => $name, 'phone' => $phone, 'procedure' => $procedure,
+                'preferred_date' => Carbon::today()->addDays($i + 2), 'preferred_period' => $period,
+                'message' => $message, 'status' => 'new',
+            ]);
+        }
 
         // Agenda de -14 a +14 dias
         $statuses = ['completed', 'completed', 'completed', 'no_show', 'canceled'];
@@ -65,8 +79,9 @@ class DatabaseSeeder extends Seeder
                         'starts_at' => $start,
                         'ends_at' => $start->copy()->addMinutes(30),
                         'type' => collect(Appointment::TYPES)->random(),
+                        'procedure' => collect(Appointment::PROCEDURES)->random(),
                         'status' => $d < 0 ? collect($statuses)->random() : collect(['scheduled', 'confirmed'])->random(),
-                        'price' => collect([150, 200, 250, 300])->random(),
+                        'price' => collect([350, 600, 1200, 2500])->random(),
                     ]);
                 }
             }

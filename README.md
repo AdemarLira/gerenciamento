@@ -6,7 +6,14 @@ cada clínica tem sua conta, seus dados isolados, seu logo, sua cor e seu link d
 
 ## Funcionalidades
 
-- **Página de vendas** (`/`): landing page para médicos, dentistas, psicólogos e clínicas, com recursos, planos,
+- **Site da clínica** (`/` e `/s/{slug}`): landing page de alto padrão (modelo inicial: odontologia estética),
+  com animações, tratamentos, antes e depois, jornada, depoimentos, dúvidas e formulário "Agendar avaliação".
+  A página inicial mostra o site da clínica definida em `SITE_CLINIC` no `.env` (slug) ou da primeira clínica ativa.
+- **Editar site** (`/site`, administrador): troca textos, fotos, logo, paleta de cores, fontes e liga/desliga seções.
+  Fotos enviadas ficam em `storage/app/public/sites` (rode `php artisan storage:link`).
+- **Solicitações** (`/solicitacoes`): pedidos feitos no site. "Marcar na agenda" cria o paciente e abre a consulta
+  já preenchida; a consulta tem procedimento, planejamento clínico e orientações ao paciente (enviáveis pelo WhatsApp).
+- **Página de vendas do sistema** (`/plataforma`): landing page para médicos, dentistas, psicólogos e clínicas, com recursos, planos,
   dúvidas frequentes e botão flutuante de WhatsApp. Os planos e preços ficam no topo de `resources/views/welcome.blade.php`.
 - **Agendamento online** (`/agendar/{slug}`): o paciente escolhe profissional, dia e horário livre (segunda a sábado,
   dentro do expediente da clínica). O cadastro do paciente é criado pelo WhatsApp informado e a consulta cai direto na agenda.

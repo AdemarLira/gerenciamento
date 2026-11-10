@@ -25,6 +25,19 @@
 <form method="POST" action="{{ $editing ? route('appointments.update', $appointment) : route('appointments.store') }}" class="card">
     @csrf
     @if($editing) @method('PUT') @endif
+    @if($bookingRequest ?? null)
+        <input type="hidden" name="booking_request_id" value="{{ $bookingRequest->id }}">
+        <div class="alert alert-success" style="margin:18px 22px 0">
+            <x-icon name="message"/>
+            <div>
+                <strong>Solicitação do site — {{ $bookingRequest->name }}</strong><br>
+                {{ $bookingRequest->procedure ?: 'Avaliação' }}
+                @if($bookingRequest->preferred_date) · prefere {{ $bookingRequest->preferred_date->format('d/m') }}@endif
+                @if($bookingRequest->periodLabel()) ({{ mb_strtolower($bookingRequest->periodLabel()) }})@endif
+                · {{ $bookingRequest->formattedPhone() }}
+            </div>
+        </div>
+    @endif
 
     <div class="card-header"><h2>Paciente e profissional</h2></div>
     <div class="card-body form-grid">
@@ -86,8 +99,24 @@
         <x-field name="price" label="Valor (R$)" class="col-3">
             <input id="price" name="price" type="number" step="0.01" min="0" value="{{ old('price', $appointment->price) }}" class="input" placeholder="0,00">
         </x-field>
-        <x-field name="notes" label="Observações" class="col-6">
-            <textarea id="notes" name="notes" class="textarea" rows="3" placeholder="Motivo da consulta, preparo, etc.">{{ old('notes', $appointment->notes) }}</textarea>
+    </div>
+
+    <div class="card-header" style="border-top:1px solid var(--border)">
+        <div><h2>Procedimento</h2><div class="sub">Informações clínicas para a equipe e orientações para o paciente.</div></div>
+    </div>
+    <div class="card-body form-grid">
+        <x-field name="procedure" label="Procedimento a realizar" class="col-6">
+            <input id="procedure" name="procedure" value="{{ old('procedure', $appointment->procedure) }}" @class(['input', 'is-invalid' => $errors->has('procedure')]) list="procedures" placeholder="Ex.: Lentes de contato dental — 10 elementos">
+            <datalist id="procedures">@foreach(\App\Models\Appointment::PROCEDURES as $p)<option value="{{ $p }}">@endforeach</datalist>
+        </x-field>
+        <x-field name="procedure_details" label="Planejamento clínico" help="Dentes/região, materiais, etapas, anestesia, tempo de cadeira… Visível só para a equipe." class="col-6">
+            <textarea id="procedure_details" name="procedure_details" class="textarea" rows="4" placeholder="Ex.: Elementos 13 a 23, porcelana feldspática, prova do mock-up aprovada, cor BL2.">{{ old('procedure_details', $appointment->procedure_details) }}</textarea>
+        </x-field>
+        <x-field name="patient_instructions" label="Orientações ao paciente" help="Pode ser enviado pelo WhatsApp depois de salvar." class="col-6">
+            <textarea id="patient_instructions" name="patient_instructions" class="textarea" rows="3" placeholder="Ex.: Chegar 15 minutos antes, fazer refeição leve, trazer exames recentes.">{{ old('patient_instructions', $appointment->patient_instructions) }}</textarea>
+        </x-field>
+        <x-field name="notes" label="Observações internas" class="col-6">
+            <textarea id="notes" name="notes" class="textarea" rows="2" placeholder="Recados para a recepção, forma de pagamento, etc.">{{ old('notes', $appointment->notes) }}</textarea>
         </x-field>
     </div>
 
@@ -112,6 +141,9 @@
                 <a href="{{ route('patients.show', $appointment->patient_id) }}" class="btn btn-block"><x-icon name="user" size="sm"/> Ver ficha do paciente</a>
                 @if($wa = $appointment->patient->whatsappUrl('Olá '.$appointment->patient->firstName().'! Lembrete da sua consulta em '.$appointment->starts_at->format('d/m \à\s H:i').' com '.$appointment->professional->name.' na '.$currentClinic->name.'. Podemos confirmar?'))
                     <a href="{{ $wa }}" target="_blank" rel="noopener" class="btn btn-wa btn-block"><x-whatsapp-icon size="15"/> Enviar lembrete no WhatsApp</a>
+                    @if($appointment->patient_instructions)
+                        <a href="{{ $appointment->patient->whatsappUrl('Olá '.$appointment->patient->firstName().'! Seguem as orientações para o seu atendimento'.($appointment->procedure ? ' ('.$appointment->procedure.')' : '').' em '.$appointment->starts_at->format('d/m \à\s H:i').":\n\n".$appointment->patient_instructions) }}" target="_blank" rel="noopener" class="btn btn-wa btn-block"><x-whatsapp-icon size="15"/> Enviar orientações</a>
+                    @endif
                     <a href="{{ $appointment->patient->whatsappUrl() }}" target="_blank" rel="noopener" class="btn btn-block"><x-whatsapp-icon size="15"/> Abrir conversa</a>
                 @endif
                 <form method="POST" action="{{ route('appointments.destroy', $appointment) }}" data-confirm="Excluir esta consulta definitivamente? Para manter o histórico, prefira mudar o status para Cancelado.">

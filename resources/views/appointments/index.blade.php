@@ -153,7 +153,7 @@
                             <div class="ev-name truncate">@if($a->status === 'completed')<x-icon name="check" size="sm" style="width:12px;height:12px;vertical-align:-2px;color:var(--success)"/> @endif{{ $a->patient->name }}</div>
                             <div class="ev-time truncate">{{ $a->starts_at->format('H:i') }}–{{ $a->ends_at->format('H:i') }} · {{ $view === 'week' ? $a->professional->name : $a->statusLabel() }}</div>
                             @if($a->durationMinutes() >= 45)
-                                <div class="muted truncate">{{ $a->type ?? 'Consulta' }}</div>
+                                <div class="muted truncate">{{ $a->procedure ?: ($a->type ?? 'Consulta') }}</div>
                             @endif
                         </a>
                     @endforeach

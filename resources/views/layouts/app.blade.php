@@ -31,12 +31,20 @@
         <a href="{{ route('patients.index') }}" @class(['nav-link', 'active' => request()->routeIs('patients.*')])>
             <x-icon name="users"/> Pacientes
         </a>
-        <a href="{{ $currentClinic->bookingUrl() }}" target="_blank" rel="noopener" class="nav-link">
-            <x-icon name="link"/> Agendamento online <x-icon name="external" size="sm" class="ml-auto muted"/>
+        @php $newRequests = \App\Models\BookingRequest::where('status', 'new')->count(); @endphp
+        <a href="{{ route('requests.index') }}" @class(['nav-link', 'active' => request()->routeIs('requests.*')])>
+            <x-icon name="message"/> Solicitações
+            @if($newRequests)<span class="nav-badge">{{ $newRequests }}</span>@endif
+        </a>
+        <a href="{{ $currentClinic->siteUrl() }}" target="_blank" rel="noopener" class="nav-link">
+            <x-icon name="eye"/> Ver meu site <x-icon name="external" size="sm" class="ml-auto muted"/>
         </a>
 
         @if(auth()->user()->isAdmin())
             <div class="nav-label">Administração</div>
+            <a href="{{ route('site.edit') }}" @class(['nav-link', 'active' => request()->routeIs('site.edit')])>
+                <x-icon name="sparkles"/> Editar site
+            </a>
             <a href="{{ route('professionals.index') }}" @class(['nav-link', 'active' => request()->routeIs('professionals.*')])>
                 <x-icon name="stethoscope"/> Profissionais
             </a>
@@ -93,5 +101,6 @@
     </div>
 </div>
 <script src="{{ asset('js/app.js') }}?v=1"></script>
+@stack('scripts')
 </body>
 </html>

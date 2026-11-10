@@ -55,7 +55,7 @@
                             <div class="strong truncate">{{ $a->patient->name }}</div>
                             <div class="muted small row" style="gap:6px">
                                 <span class="pro-dot" style="background: {{ $a->professional->color }}"></span>
-                                <span class="truncate">{{ $a->professional->name }} · {{ $a->type ?? 'Consulta' }}</span>
+                                <span class="truncate">{{ $a->professional->name }} · {{ $a->procedure ?: ($a->type ?? 'Consulta') }}</span>
                             </div>
                         </div>
                     </a>
